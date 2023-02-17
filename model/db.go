@@ -9,6 +9,10 @@ import (
 	"time"
 )
 
+// 全局变量
+var db *gorm.DB
+var err error
+
 // 连接数据库
 func InitDb() {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
@@ -18,7 +22,7 @@ func InitDb() {
 		utils.DbPort,
 		utils.DbName,
 	)
-	db, err := gorm.Open(mysql.New(mysql.Config{
+	db, err = gorm.Open(mysql.New(mysql.Config{
 		DSN: dsn, // DSN data source name
 	}), &gorm.Config{
 		//Logger:logger.Default.LogMode(logger.Silent), // gorm日志模式：silent
@@ -41,7 +45,7 @@ func InitDb() {
 		fmt.Println(db, err)
 	}
 	// 获取通用数据库对象 sql.DB ，然后使用其提供的功能
-	sqlDB, err := db.DB()
+	sqlDB, _ := db.DB()
 
 	// SetMaxIdleConns 用于设置连接池中空闲连接的最大数量。
 	sqlDB.SetMaxIdleConns(10)

@@ -35,7 +35,7 @@ func AddUser(c *gin.Context) {
 
 // 分页查询用户列表
 func GetUsers(c *gin.Context) {
-	pageSize, _ := strconv.Atoi(c.Query("pageSize"))
+	pageSize, _ := strconv.Atoi(c.Query("pageSize")) //c.Query获取get参数返回为string，strconv.Atoi()转换为int
 	pageNum, _ := strconv.Atoi(c.Query("pageNum"))
 	if pageSize == 0 { //传入参数为空，变为-1，gorm的limit(-1)不执行
 		pageSize = -1

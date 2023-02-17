@@ -1,9 +1,12 @@
 package model
 
 import (
+	"encoding/base64"
 	"fmt"
 	"ginVueBlog/utils/errmsg"
+	"golang.org/x/crypto/scrypt"
 	"gorm.io/gorm"
+	"log"
 )
 
 // pojo
@@ -28,6 +31,7 @@ func CheckUser(name string) (code int) {
 
 // 新增用户
 func CreatUser(data *User) int {
+	data.Password = ScryptPw(data.Password) //传入数据库前加密
 	err := db.Create(&data).Error
 	if err != nil {
 		return errmsg.ERROR
@@ -47,4 +51,16 @@ func GetUsers(pageSize int, pageNum int) []User {
 		return nil
 	}
 	return users
+}
+
+// 密码加密
+func ScryptPw(password string) string {
+	const KeyLen = 10
+	salt := []byte{0xc8, 0x28, 0xf2, 0x58, 0xa7, 0x6a, 0xad, 0x7b}
+	dk, err := scrypt.Key([]byte(password), salt, 1<<15, 8, 1, KeyLen) //scrypt加密
+	if err != nil {
+		log.Fatal(err)
+	}
+	fpw := base64.StdEncoding.EncodeToString(dk)
+	return fpw
 }

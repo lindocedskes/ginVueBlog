@@ -53,12 +53,34 @@ func GetUsers(c *gin.Context) {
 
 }
 
-// 编辑用户
+// 编辑用户-update
 func EditUsers(c *gin.Context) {
-	//
+	var data model.User
+	id, _ := strconv.Atoi(c.Param("id"))  //获取路径变量
+	c.ShouldBindJSON(&data)               //请求数据绑定data变量
+	code = model.CheckUser(data.Username) //检查请求的username是否存在
+	if code == errmsg.SUCCSE {
+		model.EditUser(id, &data) //调用Service层
+	}
+	if code == errmsg.ERROR_USERNAME_USED {
+		c.Abort()
+	}
+
+	c.JSON(
+		http.StatusOK, gin.H{
+			"status":  code,
+			"message": errmsg.GetErrMsg(code),
+		},
+	)
+
 }
 
-// 删除用户
+// 删除单个用户
 func DeleteUsers(c *gin.Context) {
-	//
+	id, _ := strconv.Atoi(c.Param("id"))
+	code = model.DeleteUser(id)
+	c.JSON(http.StatusOK, gin.H{
+		"status":  code,
+		"message": errmsg.GetErrMsg(code),
+	})
 }

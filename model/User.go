@@ -31,7 +31,7 @@ func CheckUser(name string) (code int) {
 
 // 新增用户
 func CreatUser(data *User) int {
-	data.Password = ScryptPw(data.Password) //传入数据库前加密
+	//data.Password = ScryptPw(data.Password) //传入数据库前加密
 	err := db.Create(&data).Error
 	if err != nil {
 		return errmsg.ERROR
@@ -53,6 +53,12 @@ func GetUsers(pageSize int, pageNum int) []User {
 	return users
 }
 
+// 钩子函数实现密码加密
+func (u *User) BeforeSave(_ *gorm.DB) (err error) { //规定的钩子函数，创建之前执行
+	u.Password = ScryptPw(u.Password)
+	return nil
+}
+
 // 密码加密
 func ScryptPw(password string) string {
 	const KeyLen = 10
@@ -63,4 +69,27 @@ func ScryptPw(password string) string {
 	}
 	fpw := base64.StdEncoding.EncodeToString(dk)
 	return fpw
+}
+
+// 编辑用户信息-update
+func EditUser(id int, data *User) int {
+	var user User
+	var maps = make(map[string]interface{})
+	maps["username"] = data.Username
+	maps["role"] = data.Role
+	err = db.Model(&user).Where("id = ? ", id).Updates(maps).Error //更新map方式，只更新map里的值
+	if err != nil {
+		return errmsg.ERROR
+	}
+	return errmsg.SUCCSE
+}
+
+// 删除用户
+func DeleteUser(id int) int {
+	var user User
+	err = db.Where("id=?", id).Delete(&user).Error
+	if err != nil {
+		return errmsg.ERROR
+	}
+	return errmsg.SUCCSE
 }

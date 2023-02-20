@@ -32,6 +32,7 @@ func AddUser(c *gin.Context) {
 }
 
 //查询单个用户
+//func GetUserInfo(c *gin.Context) {
 
 // 分页查询用户列表
 func GetUsers(c *gin.Context) {

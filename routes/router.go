@@ -27,6 +27,8 @@ func InitRouter() {
 		router.PUT("article/:id", v1.EditArt)
 		router.DELETE("article/:id", v1.DeleteArt)
 
+		router.GET("article/info/:id", v1.GetArtInfo) //分类下所有文章查询
+		router.GET("article/list/:id", v1.GetCateArt) //单个文章查询
 	}
 	//启动路由,utils.HttpPort 开放端口
 	r.Run(utils.HttpPort)

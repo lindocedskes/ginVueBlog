@@ -74,3 +74,25 @@ func DeleteArt(id int) int {
 	}
 	return errmsg.SUCCSE
 }
+
+// 查询单个文章
+func GetArtInfo(id int) (Article, int) {
+	var art Article
+	err := db.Preload("Category").Where("id=?", id).First(&art).Error
+	if err != nil {
+		return art, errmsg.ERROR_ART_NOT_EXIST
+	}
+	return art, errmsg.SUCCSE
+}
+
+// 查询分类下的所有文章
+func GetcateArt(id int, pageSize int, pageNum int) ([]Article, int, int64) {
+	var cateArtList []Article
+	var total int64
+	db.Preload("Category").Where("cid=?", id).First(&cateArtList).Count(&total)
+	err := db.Preload("Category").Limit(pageSize).Offset((pageNum-1)*pageSize).Where("cid=?", id).Find(&cateArtList).Error
+	if err != nil {
+		return nil, errmsg.ERROR_CATE_NOT_EXIST, 0
+	}
+	return cateArtList, errmsg.SUCCSE, total
+}

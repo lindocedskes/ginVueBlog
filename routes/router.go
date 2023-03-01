@@ -31,6 +31,9 @@ func InitRouter() {
 
 		//router.GET("article/info/:id", v1.GetArtInfo) //分类下所有文章查询
 		//router.GET("article/list/:id", v1.GetCateArt) //单个文章查询
+
+		//文件上传
+		auth.POST("upload", v1.Upload)
 	}
 
 	router := r.Group("api/v1")

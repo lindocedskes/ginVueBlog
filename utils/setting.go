@@ -18,6 +18,11 @@ var (
 	DbUser     string
 	DbPassWord string
 	DbName     string
+
+	AccessKey   string
+	SecreKey    string
+	Bucket      string
+	QiniuServer string
 )
 
 func init() {
@@ -27,6 +32,7 @@ func init() {
 	}
 	LoadServer(file) //获取服务器相关配置参数
 	LoadData(file)   //数据库相关参数
+	LoadQiniu(file)
 }
 
 func LoadServer(file *ini.File) {
@@ -43,4 +49,11 @@ func LoadData(file *ini.File) {
 	DbUser = file.Section("database").Key("DbUser").MustString("ginblog")
 	DbPassWord = file.Section("database").Key("DbPassWord").MustString("admin123")
 	DbName = file.Section("database").Key("DbName").MustString("ginblog")
+}
+
+func LoadQiniu(file *ini.File) {
+	AccessKey = file.Section("qiniu").Key("AccessKey").String()
+	SecreKey = file.Section("qiniu").Key("SecreKey").String()
+	Bucket = file.Section("qiniu").Key("Bucket").String()
+	QiniuServer = file.Section("qiniu").Key("QiniuServer").String()
 }

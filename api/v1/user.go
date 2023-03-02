@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"ginVueBlog/model"
 	"ginVueBlog/utils/errmsg"
+	"ginVueBlog/utils/validator"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -14,8 +15,20 @@ var code int
 
 // 添加用户
 func AddUser(c *gin.Context) {
-	var data model.User                   //user的实例
-	_ = c.ShouldBindJSON(&data)           //绑定：请求数据与data绑定
+	var data model.User         //user的实例
+	_ = c.ShouldBindJSON(&data) //绑定：请求数据与data绑定
+
+	msg, code := validator.Validate(&data) //执行后端数据验证
+	if code != errmsg.SUCCSE {
+		c.JSON(
+			http.StatusOK, gin.H{
+				"status":  code,
+				"message": msg,
+			},
+		)
+		c.Abort()
+	}
+
 	code = model.CheckUser(data.Username) //检查请求的username是否存在
 	if code == errmsg.SUCCSE {
 		model.CreatUser(&data) //调用Service层
@@ -25,8 +38,8 @@ func AddUser(c *gin.Context) {
 	}
 	fmt.Println(code)
 	c.JSON(http.StatusOK, gin.H{ //返回内容
-		"status":  code,
-		"data":    data,
+		"status": code,
+		//"data":    data,
 		"message": errmsg.GetErrMsg(code), //code对应错误的文本
 	})
 }

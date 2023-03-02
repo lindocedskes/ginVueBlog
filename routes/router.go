@@ -9,7 +9,10 @@ import "github.com/gin-gonic/gin"
 
 func InitRouter() {
 	gin.SetMode(utils.AppMode)
-	r := gin.Default()
+	//r := gin.Default() //使用默认中间件
+	r := gin.New()                  //new不使用任何中间件，use启用
+	r.Use(middleware.Logger())      //自定义中间件
+	r.Use(gin.Recovery())           //该中间件从任何恐慌中恢复，并写入500（如果有）。当你的程序出现一些你未考虑到的异常时，程序就会退出，服务就停止了
 	auth := r.Group("api/v1")       //加前缀
 	auth.Use(middleware.JwtToken()) //访问路径需要使用jwt中间件的token控制。管理员才能做
 	{

@@ -40,17 +40,18 @@ func CreatUser(data *User) int {
 }
 
 // 分页
-func GetUsers(pageSize int, pageNum int) []User {
+func GetUsers(pageSize int, pageNum int) ([]User, int64) {
 	var users []User
+	var total int64
 	offset := (pageNum - 1) * pageSize
 	if pageSize == -1 && pageNum == -1 {
 		offset = -1
 	}
-	err = db.Limit(pageSize).Offset(offset).Find(&users).Error //gorm的limit实现的分页查询
+	err = db.Limit(pageSize).Offset(offset).Find(&users).Count(&total).Error //gorm的limit实现的分页查询
 	if err != nil {
-		return nil
+		return nil, 0
 	}
-	return users
+	return users, total
 }
 
 // 钩子函数实现密码加密

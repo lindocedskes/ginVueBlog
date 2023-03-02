@@ -57,11 +57,12 @@ func GetUsers(c *gin.Context) {
 	if pageNum == 0 { //传入参数为空，变为-1，gorm的limit(-1)不执行
 		pageNum = -1
 	}
-	data := model.GetUsers(pageSize, pageNum) //调用service分页查询
+	data, total := model.GetUsers(pageSize, pageNum) //调用service分页查询
 	code = errmsg.SUCCSE
 	c.JSON(http.StatusOK, gin.H{
 		"status":  code,
 		"data":    data,
+		"total":   total,
 		"message": errmsg.GetErrMsg(code),
 	})
 

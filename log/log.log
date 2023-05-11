@@ -1,3 +1,0 @@
-time="2023-03-02T16:16:18+08:00" level=info Agent="Apifox/1.0.0 (https://www.apifox.cn)" DataSize=196 HostName=lyt.local Ip="::1" Method=POST Path=/api/v1/login SpendTime="137 ms" status=200
-time="2023-03-02T16:17:37+08:00" level=info Agent="Apifox/1.0.0 (https://www.apifox.cn)" DataSize=196 HostName=lyt.local Ip="::1" Method=POST Path=/api/v1/login SpendTime="144 ms" status=200
-time="2023-03-02T16:17:50+08:00" level=info Agent="Apifox/1.0.0 (https://www.apifox.cn)" DataSize=196 HostName=lyt.local Ip="::1" Method=POST Path=/api/v1/login SpendTime="125 ms" status=200

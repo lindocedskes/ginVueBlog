@@ -65,7 +65,6 @@ func GetUsers(c *gin.Context) {
 		"total":   total,
 		"message": errmsg.GetErrMsg(code),
 	})
-
 }
 
 // 编辑用户-update
@@ -87,7 +86,6 @@ func EditUsers(c *gin.Context) {
 			"message": errmsg.GetErrMsg(code),
 		},
 	)
-
 }
 
 // 删除单个用户

@@ -16,6 +16,7 @@ var SecretKey = utils.SecreKey
 var Bucket = utils.Bucket
 var ImgUrl = utils.QiniuServer
 
+// 七牛云的文件上传 goSDK，传入文件，返回地址
 func UpLoadFile(file multipart.File, fileSize int64) (string, int) {
 	putPolicy := storage.PutPolicy{
 		Scope: Bucket,

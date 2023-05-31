@@ -1,7 +1,9 @@
 <template>
   <div>
-    <v-app-bar app color="indigo darken-2">
-      <v-avatar class="mx-12" size="40" color="grey"></v-avatar>
+    <v-app-bar app color="blue lighten-2">
+<!--      <v-avatar class="mx-12" size="40" color="grey">-->
+<!--        <img src="logo.png" alt="Logo">-->
+<!--      </v-avatar>-->
       <v-container class="py-0 fill-height justify-center">
         <v-btn text color="white" @click="$router.push('/')">首页</v-btn>
         <v-btn

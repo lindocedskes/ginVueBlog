@@ -35,6 +35,12 @@ func CreatCate(data *Category) int {
 }
 
 // todo 查询单个分类信息
+// 查询单个分类信息
+func GetCateInfo(id int) (Category, int) {
+	var cate Category
+	db.Where("id = ?", id).First(&cate)
+	return cate, errmsg.SUCCSE
+}
 
 // 查询分类列表
 func GetCate(pageSize int, pageNum int) ([]Category, int64) {

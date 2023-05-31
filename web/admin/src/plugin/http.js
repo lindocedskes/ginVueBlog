@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import axios from 'axios'
 
-let Url = 'http://localhost:3000/api/v1/'
+// let Url = 'http://localhost:3000/api/v1/'
+//服务器环境
+let Url = 'http://20.51.164.91:3000/api/v1/'
 
 axios.defaults.baseURL = Url
 

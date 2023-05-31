@@ -8,11 +8,11 @@ gin+vue Blog
 
 前端展示页面
 
-![image-20230531195540488](/Users/luo/Desktop/ginVueBlog-main/前端开发文档picture/:Users:luo:Library:Application Support:typora-user-images:image-20230531195540488.png)
+![image-20230531195540488](./前端开发文档picture/:Users:luo:Library:Application Support:typora-user-images:image-20230531195540488.png)
 
 管理页面
 
-![image-20230531200057439](/Users/luo/Desktop/ginVueBlog-main/前端开发文档picture/:Users:luo:Library:Application Support:typora-user-images:image-20230531200057439.png)
+![image-20230531200057439](./前端开发文档picture/:Users:luo:Library:Application Support:typora-user-images:image-20230531200057439.png)
 
 ## 七牛云存储测试过期解决：
 
